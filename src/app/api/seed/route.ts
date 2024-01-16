@@ -14,6 +14,6 @@ export async function GET(request: Request) {
       { description: 'buy bread' }
     ]
   })
-  console.log('🚀 ~ GET ~ todo:', todo)
+//   console.log('🚀 ~ GET ~ todo:', todo)
   return NextResponse.json({ message: 'Seed executed' })
 }
