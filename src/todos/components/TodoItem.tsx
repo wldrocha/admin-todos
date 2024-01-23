@@ -5,19 +5,21 @@ import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md'
 
 interface Props {
   todo: Todo
+  toggleTodo: (id: string, completed: boolean) => Promise<Todo | void>
 }
-export const TodoItem = ({ todo }: Props) => {
+export const TodoItem = ({ todo, toggleTodo }: Props) => {
   return (
     <div className={todo.completed ? styles.todoDone : styles.todoPending}>
       <div className='flex flex-col sm:flex-row justify-start items-center gap-4'>
         <div
+          onClick={() => toggleTodo(todo.id, !todo.completed)}
           className={`flex p-2 rounded-md cursor-pointer hover:bg-opacity-60 ${
             todo.completed ? 'bg-blue-100' : '? bg-red-100'
           }`}
         >
           {todo.completed ? <MdCheckBox size={30} /> : <MdCheckBoxOutlineBlank size={30} />}
         </div>
-        <div className='text-center sm:text-leftÍ'></div>
+        <div className='text-center sm:text-leftÍ'>{todo.description}</div>
       </div>
     </div>
   )

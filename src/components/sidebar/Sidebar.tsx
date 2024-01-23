@@ -11,7 +11,7 @@ export const Sidebar = () => {
       title: 'Dashboard'
     },
     {
-      path: '/categories',
+      path: '/dashboard/rest-todos',
       title: 'rest-todos'
     }
   ]
