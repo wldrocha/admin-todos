@@ -24,9 +24,21 @@ const postSchema = yup.object({
 
 export async function POST(request: Request) {
   try {
-    const {completed, description} = await postSchema.validate(await request.json())
-    const todo = await prisma.todo.create({ data: {completed, description} })
+    const { completed, description } = await postSchema.validate(await request.json())
+    const todo = await prisma.todo.create({ data: { completed, description } })
     return NextResponse.json(todo)
+  } catch (error) {
+    return NextResponse.json(error.errors, { status: 400 })
+  }
+}
+
+export async function DELETE(request: Request) {
+  try {
+    const deleteAllTodos = await prisma.todo.deleteMany({
+      where: { completed: true }
+    })
+    console.log("🚀 ~ DELETE ~ deleteAllTodos:", deleteAllTodos)
+    return NextResponse.json(deleteAllTodos)
   } catch (error) {
     return NextResponse.json(error.errors, { status: 400 })
   }
