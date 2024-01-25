@@ -13,6 +13,10 @@ export const Sidebar = () => {
     {
       path: '/dashboard/rest-todos',
       title: 'rest-todos'
+    },
+    {
+      path: '/dashboard/server-todos',
+      title: 'server actions'
     }
   ]
 
