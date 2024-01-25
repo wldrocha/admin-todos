@@ -1,3 +1,7 @@
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+//Lineas para revalidar la nformacion simepre, no funciona en fuera de page, layoute o route handler
+
 import prisma from '@/app/lib/prisma'
 import { NewTodo, TodosGrid } from '@/todos'
 
