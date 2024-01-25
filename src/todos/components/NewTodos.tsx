@@ -3,8 +3,9 @@
 import { FormEvent, useState } from 'react'
 import { MdDeleteOutline } from 'react-icons/md'
 
-import * as todosApi from '@/todos/helpers'
+// import * as todosApi from '@/todos/helpers'
 import { useRouter } from 'next/navigation'
+import { addTodo, deleteCompletedTodos } from '../actions-todo-actions'
 
 export const NewTodo = () => {
   const router = useRouter()
@@ -13,14 +14,16 @@ export const NewTodo = () => {
     e.preventDefault()
     if (description.trim() === '') return
 
-    await todosApi.createTodo(description)
-    router.refresh()
+    // await todosApi.createTodo(description)
+    addTodo(description)
+    // router.refresh()
   }
 
-  const deleteCompleted = async () => {
-    await todosApi.deleteAllTodos()
-    router.refresh()
-  }
+  // const deleteCompleted = async () => {
+  //   // await todosApi.deleteAllTodos()
+  //   deleteCompletedTodos()
+  //   // router.refresh()
+  // }
   return (
     <form className='flex w-full' onSubmit={onSubmit}>
       <input
@@ -41,7 +44,7 @@ export const NewTodo = () => {
       <span className='flex flex-1'></span>
 
       <button
-        onClick={() => deleteCompleted()}
+        onClick={() => deleteCompletedTodos()}
         type='button'
         className='flex items-center justify-center rounded ml-2 bg-red-400 p-2 text-white hover:bg-red-700 transition-all'
       >
