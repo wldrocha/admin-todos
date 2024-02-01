@@ -1,6 +1,7 @@
 // https://tailwindcomponents.com/component/radio-buttons-1
 'use client'
 import { setCookie } from 'cookies-next'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 interface Pros {
@@ -9,13 +10,15 @@ interface Pros {
 }
 export const TabBar = ({ currentTab = 1, tabOptions = [1, 2, 3, 4] }: Pros) => {
   const [selected, setSelected] = useState(currentTab)
+  const router = useRouter()
 
   const onTabSelected = (tab: number) => {
     setSelected(tab)
     setCookie('currentTab', tab.toString())
+    router.refresh()
   }
   return (
-    <div className={`grid w-full ${'grid-cols-4'} space-x-2 rounded-xl bg-gray-200 p-2`}>
+    <div className={`grid w-full ${'grid-cols-' + tabOptions.length} space-x-2 rounded-xl bg-gray-200 p-2`}>
       {tabOptions.map((tabOption: number) => (
         <div key={tabOption}>
           <input
