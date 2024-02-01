@@ -1,7 +1,23 @@
+import { cookies } from 'next/headers'
+import Link from 'next/link'
 import React from 'react'
 import { CiBellOn, CiChat1, CiMenuBurger, CiSearch, CiShoppingBasket } from 'react-icons/ci'
 
 export const TopMenu = () => {
+  const cookieStore = cookies()
+
+  const cart = JSON.parse(cookieStore.get('cart')?.value ?? '{}')
+
+  const getCartTotal = (cart: { [id: string]: number }): number => {
+    let items = 0
+    Object.values(cart).forEach((item: any) => {
+      items += item
+    })
+    return items
+  }
+
+  const totalItems = getCartTotal(cart)
+
   return (
     <div className='sticky z-10 top-0 h-16 border-b bg-white lg:py-2.5'>
       <div className='px-6 flex items-center justify-between space-x-4'>
@@ -33,10 +49,10 @@ export const TopMenu = () => {
           <button className='flex items-center justify-center w-10 h-10 rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200'>
             <CiChat1 size={25} />
           </button>
-          <button className='flex items-center justify-center w-10 h-10 rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200'>
-            <span className='text-sm mr-2 text-blue-300 font-bold'>10</span>
+          <Link href={'/dashboard/cart'} className='flex items-center justify-center w-10 h-10 rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200'>
+            {totalItems > 0 && <span className='text-sm mr-2 text-blue-300 font-bold'>{totalItems}</span>}
             <CiShoppingBasket size={25} />
-          </button>
+          </Link>
         </div>
       </div>
     </div>

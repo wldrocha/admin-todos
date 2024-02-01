@@ -4,8 +4,9 @@
 
 import Image from 'next/image'
 import { Star } from './Star'
-import { addProductToCart } from '@/shopping-cart/actions/action'
+import { addProductToCart, removeProductFromCart } from '@/shopping-cart/actions/action'
 import { MdAddCircleOutline, MdDeleteOutline } from 'react-icons/md'
+import { useRouter } from 'next/navigation'
 
 interface Props {
   id: string
@@ -16,8 +17,16 @@ interface Props {
 }
 
 export const ProductCard = ({ id, name, price, rating, image }: Props) => {
+  const router = useRouter()
+
   const onAddToCart = () => {
     addProductToCart(id)
+    router.refresh()
+  }
+
+  const onRemoveFromCart = () => {
+    removeProductFromCart(id)
+    router.refresh()
   }
   return (
     <div className='bg-white shadow rounded-lg max-w-sm dark:bg-gray-800 dark:border-gray-100'>
@@ -56,7 +65,10 @@ export const ProductCard = ({ id, name, price, rating, image }: Props) => {
             >
               <MdAddCircleOutline size={25} />
             </button>
-            <button className='text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800'>
+            <button
+              className='text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800'
+              onClick={onRemoveFromCart}
+            >
               <MdDeleteOutline size={25} />
             </button>
           </div>
