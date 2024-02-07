@@ -27,6 +27,10 @@ export const Sidebar = async () => {
     {
       path: '/dashboard/products',
       title: 'Products'
+    },
+    {
+      path: '/dashboard/profile',
+      title: 'Perfil'
     }
   ]
 
