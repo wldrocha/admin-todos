@@ -18,6 +18,8 @@ export default function NamePage() {
         <span>{session?.user?.name ?? 'No Name'}</span>
         <span>{session?.user?.email ?? 'No email'}</span>
         <span>{session?.user?.image ?? 'No image'}</span>
+        <span>{session?.user?.id ?? 'No id'}</span>
+        <span>{session?.user?.roles ?? 'No roles'}</span>
       </div>
     </div>
   )
