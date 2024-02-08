@@ -13,6 +13,10 @@ docker compose up -d
 6. Ejecutar generar el cliente con ```npm prisma generate```
 8. Ejecutar el SEED para [crear la base de datos local](localhost:3000/api/seed) 
 
+## Note user default
+__usuario:__ test@email.com
+__contraseña:__ 123456
+
 # Prisma Commands
 ```
 npx prisma init
