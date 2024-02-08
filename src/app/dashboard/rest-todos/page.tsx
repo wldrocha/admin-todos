@@ -10,9 +10,12 @@ import { redirect } from 'next/navigation'
 
 export default async function RestTodoPage() {
   const user = await getUserServerSession()
-  console.log("🚀 ~ RestTodoPage ~ user:", user)
+  console.log('🚀 ~ RestTodoPage ~ user:', user)
   if (!user) redirect('/api/auth/signin')
-  const todos = await prisma.todo.findMany({ where: { userId: user.id }, orderBy: { description: 'asc' } })
+  const todos = await prisma.todo.findMany({
+    where: { userId: user.id },
+    orderBy: { description: 'asc' }
+  })
 
   return (
     <div>

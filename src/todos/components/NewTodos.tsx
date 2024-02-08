@@ -3,7 +3,7 @@
 import { FormEvent, useState } from 'react'
 import { MdDeleteOutline } from 'react-icons/md'
 
-// import * as todosApi from '@/todos/helpers'
+import * as todosApi from '@/todos/helpers'
 import { useRouter } from 'next/navigation'
 import { addTodo, deleteCompletedTodos } from '../actions-todo-actions'
 
@@ -14,9 +14,10 @@ export const NewTodo = () => {
     e.preventDefault()
     if (description.trim() === '') return
 
-    // await todosApi.createTodo(description)
-    addTodo(description)
-    // router.refresh()
+    await todosApi.createTodo(description)
+
+    // addTodo(description)
+    router.refresh()
   }
 
   // const deleteCompleted = async () => {
