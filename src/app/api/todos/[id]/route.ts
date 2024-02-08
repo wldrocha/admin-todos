@@ -1,4 +1,5 @@
 import prisma from '@/app/lib/prisma'
+import { getUserServerSession } from '@/auth'
 import { NextResponse, NextRequest } from 'next/server'
 import * as yup from 'yup'
 
@@ -8,9 +9,19 @@ interface Arguments {
   }
 }
 
+const getTodo = async (id: string): Promise<Todo | null> => {
+  const user = await getUserServerSession()
+
+  const todo = await prisma.todo.findFirst({ where: { id } })
+  if (!user || todo?.userId !== user.id) {
+    return null
+  }
+  return todo
+}
+
 export async function GET(request: Request, { params }: Arguments) {
   const { id } = params
-  const todo = await prisma.todo.findFirst({ where: { id } })
+  const todo = getTodo(id)
   if (!todo) {
     return NextResponse.json({ message: `Todo with id ${id} not found` }, { status: 404 })
   }
@@ -24,7 +35,7 @@ const putSchema = yup.object({
 
 export async function PUT(request: Request, { params }: Arguments) {
   const { id } = params
-  const todo = await prisma.todo.findFirst({ where: { id } })
+  const todo = getTodo(id)
   if (!todo) {
     return NextResponse.json({ message: `Todo with id ${id} not found` }, { status: 404 })
   }
